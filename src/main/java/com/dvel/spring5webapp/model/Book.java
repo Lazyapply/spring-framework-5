@@ -1,0 +1,72 @@
+package com.dvel.spring5webapp.model;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String tittle;
+
+    private String isbn;
+
+    private String publisher;
+
+    @ManyToMany
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
+
+    public Book() {
+    }
+
+    public Book(String tittle, String isbn, String publisher) {
+        this.tittle = tittle;
+        this.isbn = isbn;
+        this.publisher = publisher;
+    }
+
+    public Book(String tittle, String isbn, String publisher, Set<Author> authors) {
+        this.tittle = tittle;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.authors = authors;
+    }
+
+    public String getTittle() {
+        return tittle;
+    }
+
+    public void setTittle(String tittle) {
+        this.tittle = tittle;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
+}
